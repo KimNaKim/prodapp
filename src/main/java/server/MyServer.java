@@ -25,7 +25,6 @@ public class MyServer {
             InputStreamReader ir = new InputStreamReader(in);
             BufferedReader br = new BufferedReader(ir);
             //bw 버퍼
-            PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
             OutputStream out = socket.getOutputStream();
             OutputStreamWriter ow = new OutputStreamWriter(out);
             BufferedWriter bw = new BufferedWriter(ow);
@@ -35,7 +34,7 @@ public class MyServer {
                 String line = br.readLine();
                 System.out.println("[from client] : " + line);
 
-
+                //gson객체 생성
                 Gson gson = new GsonBuilder()
                         .serializeNulls()
                         .create();
