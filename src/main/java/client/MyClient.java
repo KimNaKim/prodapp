@@ -57,6 +57,7 @@ public class MyClient {
                         .serializeNulls()
                         .create();
                 RequestDTO requestDTO = new RequestDTO();
+
                 if(keyboardData.equals("1")){
                     //상품조회
                     requestDTO.setMethod("get");
@@ -97,7 +98,7 @@ public class MyClient {
                 bw.flush();
 
                 String rs = br.readLine();
-                System.out.println(rs);
+                System.out.println(rs.replace("{", "\n{"));
 
             }
 
