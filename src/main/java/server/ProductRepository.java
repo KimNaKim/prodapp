@@ -26,9 +26,9 @@ public class ProductRepository {
             if (rs.next()) {
                 return rs.getInt(1); // 생성된 id 반환
             }
-            return 1;
-        } catch (Exception e) {
             return 0;
+        } catch (Exception e) {
+            return -1;
         }
     }
 
@@ -42,7 +42,7 @@ public class ProductRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 1;
+        return 0;
     }
 
     //3. findById(int id)
@@ -85,7 +85,7 @@ public class ProductRepository {
                 list.add(p);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            return null;
         }
         return list;
     }

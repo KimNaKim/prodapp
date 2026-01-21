@@ -62,8 +62,13 @@ public class MyServer {
                         resp.setBody(ps.findById(id));
                     }else{
                         //상품목록
-                        resp.setMsg("ok");
                         resp.setBody(ps.findAll());
+                        if(resp.getBody() == null){
+                            //data가 존재하지 않을 때
+                            resp.setMsg("Data is not exist");
+                        }else{
+                            resp.setMsg("ok");
+                        }
                     }
                 }
 
