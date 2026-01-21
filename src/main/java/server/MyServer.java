@@ -34,6 +34,11 @@ public class MyServer {
                 String line = br.readLine();
                 System.out.println("[from client] : " + line);
 
+                if(line.equals("exit")){
+                    System.out.println("프로그램을 종료합니다.");
+                    break;
+                }
+
                 //gson객체 생성
                 Gson gson = new GsonBuilder()
                         .serializeNulls()
@@ -41,11 +46,6 @@ public class MyServer {
                 RequestDTO req = gson.fromJson(line, RequestDTO.class);
                 ResponseDTO resp = new ResponseDTO();
                 ProductService ps = new ProductService();
-
-                if(line.equals("exit")){
-                    System.out.println("프로그램을 종료합니다.");
-                    break;
-                }
 
                 //3. Service 호출하기
                 if(req.getMethod().equals("get")){

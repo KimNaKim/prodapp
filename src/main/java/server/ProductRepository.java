@@ -3,6 +3,7 @@ package server;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,12 +13,12 @@ public class ProductRepository {
     //DB와 직접 연결해서 상호작용하는 코드
     Connection conn = DBConnection.getConnection();
 
+
     //Service의 메서드들을 연결
     //1. insert(String name, int price, int qty)
     int insert(String name, int price, int qty){
         String sql = "insert into product(name, price, qty) values (?, ?, ?)";
-        try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
+        try(PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, name);
             pstmt.setInt(2, price);
             pstmt.setInt(3, qty);
@@ -38,8 +39,7 @@ public class ProductRepository {
     int deleteById(int id){
         String sql = "delete from product where id = ?";
 
-        try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(1, id);
             return pstmt.executeUpdate(); // 삭제된 행 수
         } catch (Exception e) {
@@ -52,8 +52,7 @@ public class ProductRepository {
     Product findById(int id){
         String sql = "select * from product where id = ?";
 
-        try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
+        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
 
@@ -76,10 +75,8 @@ public class ProductRepository {
         List<Product> list = new ArrayList<>();
         String sql = "select * from product";
 
-        try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            ResultSet rs = pstmt.executeQuery();
-
+        try(PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 Product p = new Product(
                         rs.getInt("id"),

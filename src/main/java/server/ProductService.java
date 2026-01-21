@@ -1,8 +1,10 @@
 package server;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class ProductService implements ProductServiceInterface {
+    Connection conn = DBConnection.getConnection();
     private ProductRepository pr;
 
     public ProductService(){
