@@ -15,7 +15,8 @@ public class ProductRepository {
     //1. insert(String name, int price, int qty)
     int insert(String name, int price, int qty){
         String sql = "insert into product(name, price, qty) values (?, ?, ?)";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, name);
             pstmt.setInt(2, price);
             pstmt.setInt(3, qty);
@@ -36,7 +37,8 @@ public class ProductRepository {
     int deleteById(int id){
         String sql = "delete from product where id = ?";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, id);
             return pstmt.executeUpdate(); // 삭제된 행 수
         } catch (Exception e) {
@@ -49,7 +51,8 @@ public class ProductRepository {
     Product findById(int id){
         String sql = "select * from product where id = ?";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
 
@@ -62,7 +65,7 @@ public class ProductRepository {
                 );
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            return null;
         }
         return null;
     }
@@ -72,8 +75,9 @@ public class ProductRepository {
         List<Product> list = new ArrayList<>();
         String sql = "select * from product";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 Product p = new Product(
@@ -84,9 +88,9 @@ public class ProductRepository {
                 );
                 list.add(p);
             }
+            return list;
         } catch (Exception e) {
             return null;
         }
-        return list;
     }
 }
