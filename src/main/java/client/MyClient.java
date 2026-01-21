@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.RequestDTO;
 import dto.ResponseDTO;
+import server.Product;
 
 public class MyClient {
     public static void main(String[] args) {
@@ -68,7 +69,7 @@ public class MyClient {
 
                     if (parts.length == 2) {
                         // get 3 → 단건 조회
-                        Map<String, Object> query = new HashMap<>();
+                        Map<String, Integer> query = new HashMap<>();
                         query.put("id", Integer.parseInt(parts[1]));
                         req.setQuerystring(query);
                     }
@@ -76,18 +77,18 @@ public class MyClient {
 
                 if (method.equals("delete")) {
                     if (parts.length == 2) {
-                        Map<String, Object> query = new HashMap<>();
+                        Map<String, Integer> query = new HashMap<>();
                         query.put("id", Integer.parseInt(parts[1]));
                         req.setQuerystring(query);
                     }
                 }
 
                 if (method.equals("post")) {
-                    Map<String, Object> body = new HashMap<>();
-                    body.put("name", parts[1]);
-                    body.put("price", Integer.parseInt(parts[2]));
-                    body.put("qty", Integer.parseInt(parts[3]));
-                    req.setBody(body);
+                    Product body = new Product();
+                    body.setName(parts[1]);
+                    body.setPrice(Integer.parseInt(parts[2]));
+                    body.setQty(Integer.parseInt(parts[3]));
+                    req.setProduct(body);
                 }
 
                 String json = gson.toJson(req);

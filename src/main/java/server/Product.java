@@ -6,9 +6,17 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
-    private int id;
+    @Setter
+    @Getter
+    private Integer id;
+    @Setter
+    @Getter
     private String name;
-    private int price;
-    private int qty;
+    @Setter
+    @Getter
+    private Integer price;
+    @Setter
+    @Getter
+    private Integer qty;
 
 }

@@ -1,6 +1,7 @@
 package dto;
 
 import lombok.*;
+import server.Product;
 
 import java.util.Map;
 
@@ -15,9 +16,9 @@ public class RequestDTO {
     private String method;
     @Setter
     @Getter
-    private Map<String, Object> querystring;
+    private Map<String, Integer> querystring;
     @Setter
     @Getter
-    private Map<String, Object> body;
+    private Product product;
 
 }
