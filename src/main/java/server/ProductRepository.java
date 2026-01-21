@@ -14,7 +14,7 @@ public class ProductRepository {
     //Service의 메서드들을 연결
     //1. insert(String name, int price, int qty)
     int insert(String name, int price, int qty){
-        String sql = "insert into products(name, price, qty) values (?, ?, ?)";
+        String sql = "insert into product(name, price, qty) values (?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, name);
             pstmt.setInt(2, price);
@@ -34,7 +34,7 @@ public class ProductRepository {
 
     //2. deleteById(int id)
     int deleteById(int id){
-        String sql = "delete from products where id = ?";
+        String sql = "delete from product where id = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
@@ -47,7 +47,7 @@ public class ProductRepository {
 
     //3. findById(int id)
     Product findById(int id){
-        String sql = "select * from products where id = ?";
+        String sql = "select * from product where id = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
@@ -70,7 +70,7 @@ public class ProductRepository {
     //4. findAll()
     List<Product> findAll(){
         List<Product> list = new ArrayList<>();
-        String sql = "select * from products";
+        String sql = "select * from product";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
