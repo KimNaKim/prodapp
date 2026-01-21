@@ -8,7 +8,7 @@ public class DBConnection {
     // 책임 : 데이터베이스 연결 소켓을 리턴함
     public static Connection getConnection() {
         //sql의 root로 접속해서 productdb 만들기
-        String url = "jdbc:mysql://localhost:3306/product_db";
+        String url = "jdbc:mysql://localhost:3306/productdb";
         String username = "root";
         String password = "bitc5600!";
 
