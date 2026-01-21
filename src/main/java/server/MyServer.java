@@ -48,7 +48,6 @@ public class MyServer {
                 }
 
                 //3. Service 호출하기
-
                 if(req.getMethod().equals("get")){
                     if(req.getQuerystring()!=null){
                         Number idNum = (Number) req.getQuerystring().get("id");
@@ -73,6 +72,7 @@ public class MyServer {
                 }
 
                 if(req.getMethod().equals("post")){
+                    //상품등록
                     if (req.getBody() != null) {
                         String name = (String) req.getBody().get("name");
                         Number priceNum = (Number) req.getBody().get("price");
@@ -80,9 +80,8 @@ public class MyServer {
                         Number qtyNum = (Number) req.getBody().get("qty");
                         Integer qty = qtyNum.intValue();
                         //상품등록
-                        resp.setMsg("ok");
                         ps.save(name, price, qty);
-
+                        resp.setMsg("ok");
                     }
                     else{
                         //body 값이 없을 때
@@ -91,17 +90,21 @@ public class MyServer {
                 }
 
                 if(req.getMethod().equals("delete")){
+                    //삭제
                     if(req.getQuerystring()!=null){
                         Number idNum = (Number) req.getQuerystring().get("id");
                         Integer id = idNum.intValue();
                         int isDelete = ps.deleteById(id);
                         if(isDelete == 0){
                             resp.setMsg("id not found");
+                        }else if(isDelete == -1){
+                            resp.setMsg("delete failed");
                         }else{
                             resp.setMsg("ok");
                         }
                     }
                     else{
+                        //querystring 값이 없을 때 (id가 없을 때)
                         resp.setMsg("id not found");
                     }
                 }

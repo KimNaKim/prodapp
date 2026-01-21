@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProductRepository {
@@ -27,10 +28,10 @@ public class ProductRepository {
             if (rs.next()) {
                 return rs.getInt(1); // 생성된 id 반환
             }
-            return 0;
         } catch (Exception e) {
-            return -1;
+            e.printStackTrace();
         }
+        return -1;
     }
 
     //2. deleteById(int id)
@@ -44,7 +45,7 @@ public class ProductRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
+        return -1;
     }
 
     //3. findById(int id)
@@ -65,7 +66,7 @@ public class ProductRepository {
                 );
             }
         } catch (Exception e) {
-            return null;
+            e.printStackTrace();
         }
         return null;
     }
@@ -90,7 +91,8 @@ public class ProductRepository {
             }
             return list;
         } catch (Exception e) {
-            return null;
+            e.printStackTrace();
         }
+        return Arrays.asList();
     }
 }
